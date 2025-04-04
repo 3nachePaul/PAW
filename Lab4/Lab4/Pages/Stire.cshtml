@@ -1,0 +1,46 @@
+﻿@page "{stireId:int}"
+@model StireModel
+@{
+    ViewData["Title"] = Model.Stire?.Titlu ?? "Știre";
+}
+
+<div class="container">
+    <h1 class="my-4">Detalii Știre</h1>
+
+    @if (Model.Stire != null)
+    {
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.Stire.Titlu</h5>
+                        <p class="card-text">@Model.Stire.Lead</p>
+
+                        <div class="card-text mb-4">
+                            <h6 class="text-muted mb-2">Conținut:</h6>
+                            @Model.Stire.Continut
+                        </div>
+
+                        <p class="card-text small text-muted">
+                            Adăugat de @Model.Stire.Autor la data de @Model.Stire.Data.ToString("dd MMMM yyyy")
+                            în categoria @(Model.Stire.Categorie != null ? Model.Stire.Categorie.Nume : "Necunoscută")
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <a asp-page="./Index" class="btn btn-primary">
+                <i class="bi bi-arrow-left"></i> Înapoi la lista de știri
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning mt-4">
+            <p>Știrea cu ID-ul @ViewContext.RouteData.Values["stireId"] nu a fost găsită.</p>
+            <a asp-page="./Index" class="btn btn-primary mt-3">Înapoi la știri</a>
+        </div>
+    }
+</div>

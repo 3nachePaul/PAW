@@ -1,0 +1,37 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Știri";
+}
+
+<div class="container">
+    <h1 class="my-4">Ultimele Știri</h1>
+
+    @if (Model.Stiri != null && Model.Stiri.Any())
+    {
+        <div class="row">
+            @foreach (var stire in Model.Stiri)
+            {
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a asp-page="./Stire" asp-route-stireId="@stire.Id">@stire.Titlu</a>
+                            </h5>
+                            <p class="card-text">@stire.Lead</p>
+                            <p class="card-text small text-muted">
+                                Adăugat de @stire.Autor la data de @stire.Data.ToString("dd MMMM yyyy")
+                                în categoria @(stire.Categorie != null ? stire.Categorie.Nume : "Necunoscută")
+                            </p>
+                            <a asp-page="./Stire" asp-route-stireId="@stire.Id" class="btn btn-primary">Citește mai mult</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>Nu există știri disponibile.</p>
+    }
+</div>
